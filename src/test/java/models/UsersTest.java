@@ -48,6 +48,26 @@ public class UsersTest {
         assertNotEquals("none",user.getEmail());
     }
 
+    @Test
+    public void getTotalTreesPlanted_int(){
+        Users user = newUser();
+        assertEquals(0,user.getTotal_trees_planted());
+    }
+
+    @Test
+    public void getClan_checkWhetherUserIsInClan_false(){
+        Users user = newUser();
+        assertFalse(user.isInClan());
+    }
+
+    @Test
+    public void getClanName_string(){
+        Users user = newUser();
+        //for new user at first, display name will be username
+        assertEquals("none",user.getClan_name());
+        user.setClan_name("another clan's name");
+        assertNotEquals("none",user.getClan_name());
+    }
 
     //Helper
     private Users newUser(){
