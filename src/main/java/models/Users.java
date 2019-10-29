@@ -10,7 +10,13 @@ public class Users {
     private boolean inClan;
     private String clan_name;
 
-
+    public Users(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.total_trees_planted = 0;
+        this.inClan = false;
+        this.clan_name = "none";
+    }
 
     public int getId() {
         return id;
