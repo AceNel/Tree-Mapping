@@ -13,9 +13,11 @@ public class Users {
     public Users(String username, String password) {
         this.username = username;
         this.password = password;
+        this.display_name = username;
         this.total_trees_planted = 0;
         this.inClan = false;
         this.clan_name = "none";
+        this.email = "none";
     }
 
     public int getId() {
