@@ -6,7 +6,7 @@ public class Users {
     private String password;
     private String email;
     private String display_name;
-    private int total_trees_planted;
+    private int trees_planted;
     private boolean inClan;
     private String clan_name;
 
@@ -14,7 +14,7 @@ public class Users {
         this.username = username;
         this.password = password;
         this.display_name = username;
-        this.total_trees_planted = 0;
+        this.trees_planted = 0;
         this.inClan = false;
         this.clan_name = "none";
         this.email = "none";
@@ -60,12 +60,12 @@ public class Users {
         this.display_name = display_name;
     }
 
-    public int getTotal_trees_planted() {
-        return total_trees_planted;
+    public int getTrees_planted() {
+        return trees_planted;
     }
 
-    public void setTotal_trees_planted(int total_trees_planted) {
-        this.total_trees_planted = total_trees_planted;
+    public void setTrees_planted(int trees_planted) {
+        this.trees_planted = trees_planted;
     }
 
     public boolean isInClan() {

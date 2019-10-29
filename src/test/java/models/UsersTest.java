@@ -49,9 +49,9 @@ public class UsersTest {
     }
 
     @Test
-    public void getTotalTreesPlanted_int(){
+    public void getTreesPlanted_int(){
         Users user = newUser();
-        assertEquals(0,user.getTotal_trees_planted());
+        assertEquals(0,user.getTrees_planted());
     }
 
     @Test
