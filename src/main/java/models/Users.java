@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Users {
     private int id;
     private String username;
@@ -18,6 +20,25 @@ public class Users {
         this.inClan = false;
         this.clan_name = "none";
         this.email = "none";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return trees_planted == users.trees_planted &&
+                inClan == users.inClan &&
+                Objects.equals(username, users.username) &&
+                Objects.equals(password, users.password) &&
+                Objects.equals(email, users.email) &&
+                Objects.equals(display_name, users.display_name) &&
+                Objects.equals(clan_name, users.clan_name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, email, display_name, trees_planted, inClan, clan_name);
     }
 
     public int getId() {
