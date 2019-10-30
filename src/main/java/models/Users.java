@@ -10,14 +10,14 @@ public class Users {
     private int id;
     private String username;
     private String password;
-    private String salt;
+    private byte[] salt;
     private String email;
     private String display_name;
     private int trees_planted;
     private boolean inClan;
     private String clan_name;
 
-    public Users(String username, String password) {
+    public Users(String username, String password) throws Exception {
         this.username = username.trim();
         this.password = password.trim();
         this.display_name = this.username;
@@ -25,6 +25,8 @@ public class Users {
         this.inClan = false;
         this.clan_name = "none";
         this.email = "none";
+        this.salt = Hashing.salt();
+        securePassword();
     }
 
     @Override
@@ -110,18 +112,21 @@ public class Users {
         this.clan_name = clan_name;
     }
 
-    public String getSalt() {
+    public byte[] getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public void setSalt(byte[] salt) {
         this.salt = salt;
     }
 
     public void securePassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
-        String saltedPass = Hashing.generateHash(this.password);
-        setSalt(saltedPass.split(":")[0]);
-        setPassword(saltedPass.split(":")[1]);
+        String saltedPass = Hashing.generateHash(this.salt,this.password);
+        setPassword(saltedPass);
+    }
+
+    public static String verifyPassword(byte[] salt, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        return Hashing.verifyHash(salt,password);
     }
 
 }

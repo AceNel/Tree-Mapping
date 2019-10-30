@@ -3,6 +3,10 @@ package dao;
 import models.Users;
 import org.junit.Rule;
 import org.junit.Test;
+import security.Hashing;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 import static org.junit.Assert.*;
 
@@ -12,25 +16,28 @@ public class Sql2oUserDaoTest {
     public DatabaseRule databaseRule = new DatabaseRule();
 
     @Test
-    public void getId_userIsInsertedIntoDatabase_int(){
+    public void getId_userIsInsertedIntoDatabase_int() throws Exception {
         Users user = newUser();
         assertNotEquals(0,user.getId());
     }
 
     @Test
-    public void getAllUsers_FetchAllUsersPresent_int(){
-
+    public void verifyHashedPassword_true() throws Exception {
+        Users user = newUser();
+        byte[] salt = userDao.getUserSalt("username");
+        String verifiedPass = Users.verifyPassword(salt,"asdf");
+        assertEquals(user.getPassword(),verifiedPass);
     }
 
 
     //Helper
-    private Users newUser(){
+    private Users newUser() throws Exception{
         Users user = new Users("username","asdf");
         userDao.add(user);
         return user;
     }
 
-    private Users newUser2(){
+    private Users newUser2() throws Exception {
         Users user = new Users("anotherusername","1234");
         userDao.add(user);
         return user;

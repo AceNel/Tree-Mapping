@@ -16,27 +16,27 @@ public class UsersTest {
     public DatabaseRule databaseRule = new DatabaseRule();
 
     @Test
-    public void instantiatesCorrectly(){
+    public void instantiatesCorrectly() throws Exception {
         Users user = newUser();
         assertTrue(user instanceof Users);
     }
 
     @Test
-    public void getUsername_string(){
+    public void getUsername_string() throws Exception {
         Users user = newUser();
         assertNotEquals("",user.getUsername());
         assertTrue(user.getUsername() instanceof String);
     }
 
     @Test
-    public void getPassword_string(){
+    public void getPassword_string() throws Exception {
         Users user = newUser();
         assertNotEquals("",user.getPassword());
         assertTrue(user.getPassword() instanceof String);
     }
 
     @Test
-    public void getDisplayName_string(){
+    public void getDisplayName_string() throws Exception {
         Users user = newUser();
         //for new user at first, display name will be username
         assertEquals(user.getUsername(),user.getDisplay_name());
@@ -45,7 +45,7 @@ public class UsersTest {
     }
 
     @Test
-    public void getEmail_string(){
+    public void getEmail_string() throws Exception {
         Users user = newUser();
         assertEquals("none",user.getEmail());
         user.setEmail("testEmail@gmail.com");
@@ -53,19 +53,19 @@ public class UsersTest {
     }
 
     @Test
-    public void getTreesPlanted_int(){
+    public void getTreesPlanted_int() throws Exception {
         Users user = newUser();
         assertEquals(0,user.getTrees_planted());
     }
 
     @Test
-    public void getClan_checkWhetherUserIsInClan_false(){
+    public void getClan_checkWhetherUserIsInClan_false() throws Exception{
         Users user = newUser();
         assertFalse(user.isInClan());
     }
 
     @Test
-    public void getClanName_string(){
+    public void getClanName_string() throws Exception {
         Users user = newUser();
         //for new user at first, display name will be username
         assertEquals("none",user.getClan_name());
@@ -74,16 +74,15 @@ public class UsersTest {
     }
 
     @Test
-    public void hashPassword_string() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public void hashPassword_string() throws Exception {
         Users user = newUser();
         String unsecuredPass = user.getPassword();
         user.securePassword();
-        System.out.println(user.getPassword());
         assertNotEquals(unsecuredPass,user.getPassword());
     }
 
     //Helper
-    private Users newUser(){
+    private Users newUser() throws Exception{
         return new Users("username","asdf");
     }
 }

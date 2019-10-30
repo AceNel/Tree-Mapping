@@ -7,6 +7,7 @@ public interface UserDao {
     void add(Users user);
 
     //read
+    byte[] getUserSalt(String username);
 
     //update
     void updateUsername(Users user);
