@@ -9,6 +9,8 @@ public interface UserDao {
     //read
 
     //update
+    void updateUsername(Users user);
+    void updatePassword(Users user);
 
     //delete
 

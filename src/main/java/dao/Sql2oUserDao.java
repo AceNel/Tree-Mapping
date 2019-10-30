@@ -21,5 +21,15 @@ public class Sql2oUserDao implements UserDao {
         }
     }
 
+    @Override
+    public void updateUsername(Users user) {
+
+    }
+
+    @Override
+    public void updatePassword(Users user) {
+
+    }
+
 
 }

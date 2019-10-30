@@ -17,10 +17,25 @@ public class Sql2oUserDaoTest {
         assertNotEquals(0,user.getId());
     }
 
+    @Test
+    public void getAllUsers_FetchAllUsersPresent_int(){
+
+    }
+
+
     //Helper
     private Users newUser(){
         Users user = new Users("username","asdf");
         userDao.add(user);
         return user;
     }
+
+    private Users newUser2(){
+        Users user = new Users("anotherusername","1234");
+        userDao.add(user);
+        return user;
+    }
+
+
+
 }

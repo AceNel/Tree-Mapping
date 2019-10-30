@@ -3,6 +3,10 @@ package models;
 import dao.DatabaseRule;
 import org.junit.Rule;
 import org.junit.Test;
+import security.Hashing;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 import static org.junit.Assert.*;
 
@@ -67,6 +71,15 @@ public class UsersTest {
         assertEquals("none",user.getClan_name());
         user.setClan_name("another clan's name");
         assertNotEquals("none",user.getClan_name());
+    }
+
+    @Test
+    public void hashPassword_string() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        Users user = newUser();
+        String unsecuredPass = user.getPassword();
+        user.securePassword();
+        System.out.println(user.getPassword());
+        assertNotEquals(unsecuredPass,user.getPassword());
     }
 
     //Helper
