@@ -35,6 +35,14 @@ public class Sql2oUserDaoTest {
         assertEquals(1,userDao.allUsers().size());
     }
 
+    @Test
+    public void findUser_int() throws Exception{
+        Users user = newUser();
+        Users user2 = newUser2();
+        assertEquals(2,userDao.allUsers().size());
+        assertTrue(user2.equals(userDao.allUsers().get(1)));
+    }
+
 
 
 
