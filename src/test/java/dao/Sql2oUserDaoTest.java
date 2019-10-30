@@ -3,8 +3,6 @@ package dao;
 import models.Users;
 import org.junit.Rule;
 import org.junit.Test;
-import security.Hashing;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -12,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class Sql2oUserDaoTest {
     Sql2oUserDao userDao = new Sql2oUserDao();
+
     @Rule
     public DatabaseRule databaseRule = new DatabaseRule();
 
@@ -28,6 +27,17 @@ public class Sql2oUserDaoTest {
         String verifiedPass = Users.verifyPassword(salt,"asdf");
         assertEquals(user.getPassword(),verifiedPass);
     }
+
+    @Test
+    public void uniqueUsername_cannotRegisterWithExistingUsername() throws Exception {
+        Users user = newUser();
+        Users user2 = newUser();
+        assertEquals(1,userDao.allUsers().size());
+    }
+
+
+
+
 
 
     //Helper
