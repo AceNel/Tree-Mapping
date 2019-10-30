@@ -129,4 +129,8 @@ public class Users {
         return Hashing.verifyHash(salt,password);
     }
 
+    public void plantTree(){
+        this.trees_planted++;
+    }
+
 }

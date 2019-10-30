@@ -43,6 +43,25 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
+    public List<Users> allUsers() {
+        String sql = "SELECT * FROM users;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .executeAndFetch(Users.class);
+        }
+    }
+
+    @Override
+    public Users findUser(int userId) {
+        String sql = "SELECT * FROM users WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id",userId)
+                    .executeAndFetchFirst(Users.class);
+        }
+    }
+
+    @Override
     public void updateUsername(Users user) {
         String sql = "UPDATE users SET username = :username WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
@@ -65,24 +84,51 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public Users findUser(int userId) {
-        String sql = "SELECT * FROM users WHERE id = :id;";
+    public void updateEmail(Users user) {
+        String sql = "UPDATE users SET email = :email WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
-            return con.createQuery(sql)
-                    .addParameter("id",userId)
-                    .executeAndFetchFirst(Users.class);
+            con.createQuery(sql)
+                    .addParameter("email",user.getEmail())
+                    .addParameter("id",user.getId())
+                    .executeUpdate();
         }
     }
 
     @Override
-    public List<Users> allUsers() {
-        String sql = "SELECT * FROM users;";
+    public void updateDisplayName(Users user) {
+        String sql = "UPDATE users SET display_name = :display_name WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
-            return con.createQuery(sql)
-                    .executeAndFetch(Users.class);
+            con.createQuery(sql)
+                    .addParameter("display_name",user.getDisplay_name())
+                    .addParameter("id",user.getId())
+                    .executeUpdate();
         }
     }
 
+    @Override
+    public void updateTreesPlanted(Users user) {
+        String sql = "UPDATE users SET trees_planted = :trees_planted WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("trees_planted",user.getTrees_planted())
+                    .addParameter("id",user.getId())
+                    .executeUpdate();
+
+            // TODO: 10/30/19 branch: IF user is in clan, update tree_pts too 
+        }
+    }
+
+    @Override
+    public int getTreesPlanted(int userId) {
+        String sql = "SELECT trees_planted FROM users WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id",userId)
+                    .executeAndFetchFirst(Integer.class);
+        }
+    }
+
+    /* ------- PRIVATE METHODS -------*/
     private boolean isUsernameTaken(String username){
         String sql = "SELECT username FROM users;";
         try(Connection con = DB.sql2o.open()){

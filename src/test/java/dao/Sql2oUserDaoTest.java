@@ -43,9 +43,20 @@ public class Sql2oUserDaoTest {
         assertTrue(user2.equals(userDao.allUsers().get(1)));
     }
 
+    @Test
+    public void userPlantTree_getNumberOfTreesPlanted_int() throws Exception{
+        Users user = newUser();
+        user.plantTree();
+        user.plantTree();
+        userDao.updateTreesPlanted(user);
+        assertEquals(2,userDao.getTreesPlanted(user.getId()));
+    }
 
+    @Test
+    public void updateUsername() throws Exception{
+        Users user = newUser();
 
-
+    }
 
 
     //Helper

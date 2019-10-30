@@ -12,10 +12,14 @@ public interface UserDao {
     byte[] getUserSalt(String username);
     List<Users> allUsers();
     Users findUser(int userId);
+    int getTreesPlanted(int userId);
 
     //update
     void updateUsername(Users user);
     void updatePassword(Users user);
+    void updateEmail(Users user);
+    void updateDisplayName(Users user);
+    void updateTreesPlanted(Users user);
 
     //delete
 
