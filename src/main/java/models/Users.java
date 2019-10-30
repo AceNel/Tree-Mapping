@@ -1,16 +1,45 @@
 package models;
 
+import java.util.Objects;
+
 public class Users {
     private int id;
     private String username;
     private String password;
     private String email;
     private String display_name;
-    private int total_trees_planted;
+    private int trees_planted;
     private boolean inClan;
     private String clan_name;
 
+    public Users(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.display_name = username;
+        this.trees_planted = 0;
+        this.inClan = false;
+        this.clan_name = "none";
+        this.email = "none";
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return trees_planted == users.trees_planted &&
+                inClan == users.inClan &&
+                Objects.equals(username, users.username) &&
+                Objects.equals(password, users.password) &&
+                Objects.equals(email, users.email) &&
+                Objects.equals(display_name, users.display_name) &&
+                Objects.equals(clan_name, users.clan_name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, email, display_name, trees_planted, inClan, clan_name);
+    }
 
     public int getId() {
         return id;
@@ -52,12 +81,12 @@ public class Users {
         this.display_name = display_name;
     }
 
-    public int getTotal_trees_planted() {
-        return total_trees_planted;
+    public int getTrees_planted() {
+        return trees_planted;
     }
 
-    public void setTotal_trees_planted(int total_trees_planted) {
-        this.total_trees_planted = total_trees_planted;
+    public void setTrees_planted(int trees_planted) {
+        this.trees_planted = trees_planted;
     }
 
     public boolean isInClan() {
