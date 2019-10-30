@@ -1,5 +1,6 @@
 package dao;
 
+import models.Clan;
 import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
@@ -24,11 +25,7 @@ public class Sql2oUserDao implements UserDao {
             }
         }
         else {
-            try {
-                throw new UnsupportedOperationException("Username Taken");
-            } catch (UnsupportedOperationException e) {
-                e.printStackTrace();
-            }
+            throw new UnsupportedOperationException("Username Taken");
         }
     }
 
@@ -61,7 +58,8 @@ public class Sql2oUserDao implements UserDao {
         }
     }
 
-    public String findPassword(int userId) {
+    @Override
+    public String findPasswordById(int userId) {
         String sql = "SELECT password FROM users WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
@@ -135,6 +133,18 @@ public class Sql2oUserDao implements UserDao {
             return con.createQuery(sql)
                     .addParameter("id",userId)
                     .executeAndFetchFirst(Integer.class);
+        }
+    }
+
+    @Override
+    public void joinClan(Users user, Clan clan) {
+        String sql = "UPDATE users SET inclan = 'true', clan_name = :clan_name WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("clan_name",user.getClan_name())
+                    .addParameter("id",user.getId())
+                    .executeUpdate();
+            // TODO: 10/30/19 ADD clan name parameter here!! 
         }
     }
 

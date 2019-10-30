@@ -71,12 +71,8 @@ public class Users {
         return password;
     }
 
-    public void setPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        if(!password.isEmpty()){
-            this.password = password;
-            this.salt = Hashing.salt();
-            securePassword();
-        }
+    public void setPassword(String password)  {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -121,6 +117,14 @@ public class Users {
 
     public byte[] getSalt() {
         return salt;
+    }
+
+    public void updateSaltedPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
+        if(!password.isEmpty()){
+            this.password = password;
+            this.salt = Hashing.salt();
+            securePassword();
+        }
     }
 
     public void securePassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
