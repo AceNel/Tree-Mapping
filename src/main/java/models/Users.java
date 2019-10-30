@@ -61,7 +61,9 @@ public class Users {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        if(!username.isEmpty()){
+            this.username = username;
+        }
     }
 
     public String getPassword() {
@@ -69,7 +71,9 @@ public class Users {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(!password.isEmpty()){
+            this.password = password;
+        }
     }
 
     public String getEmail() {

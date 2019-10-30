@@ -55,7 +55,10 @@ public class Sql2oUserDaoTest {
     @Test
     public void updateUsername() throws Exception{
         Users user = newUser();
-
+        user.setUsername("notUsername");
+        userDao.updateUsername(user);
+        assertNotEquals("username",userDao.findUser(user.getId()).getUsername());
+        assertEquals("notUsername",userDao.findUser(user.getId()).getUsername());
     }
 
 
