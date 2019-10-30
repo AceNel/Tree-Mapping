@@ -29,18 +29,17 @@ public class Sql2oUserDaoTest {
     }
 
     @Test
+    public void getAllUsers() throws Exception{
+        Users user = newUser();
+        Users user2 = newUser2();
+        assertEquals(2, userDao.allUsers().size());
+    }
+
+    @Test
     public void uniqueUsername_cannotRegisterWithExistingUsername() throws Exception {
         Users user = newUser();
         Users user2 = newUser();
         assertEquals(1,userDao.allUsers().size());
-    }
-
-    @Test
-    public void findUser_int() throws Exception{
-        Users user = newUser();
-        Users user2 = newUser2();
-        assertEquals(2,userDao.allUsers().size());
-        assertTrue(user2.equals(userDao.allUsers().get(1)));
     }
 
     @Test
@@ -57,8 +56,22 @@ public class Sql2oUserDaoTest {
         Users user = newUser();
         user.setUsername("notUsername");
         userDao.updateUsername(user);
-        assertNotEquals("username",userDao.findUser(user.getId()).getUsername());
-        assertEquals("notUsername",userDao.findUser(user.getId()).getUsername());
+        Users foundUser = userDao.findUser(user.getId());
+        assertNotEquals("username",foundUser.getUsername());
+        assertEquals("notUsername",foundUser.getUsername());
+    }
+
+    @Test
+    public void updatePassword() throws Exception {
+        Users user = newUser();
+        byte[] oldSalt = user.getSalt();
+        String oldPassword = user.getPassword();
+        user.setPassword("000000");
+        userDao.updatePassword(user);
+        Users foundUser = userDao.findUser(user.getId());
+        System.out.println(oldPassword+ " : "+ foundUser.getPassword());
+        assertNotEquals(oldSalt,foundUser.getSalt());
+        assertNotEquals(oldPassword,foundUser.getPassword());
     }
 
 

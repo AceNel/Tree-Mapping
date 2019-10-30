@@ -61,6 +61,15 @@ public class Sql2oUserDao implements UserDao {
         }
     }
 
+    public String findPassword(int userId) {
+        String sql = "SELECT password FROM users WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id",userId)
+                    .executeAndFetchFirst(String.class);
+        }
+    }
+
     @Override
     public void updateUsername(Users user) {
         String sql = "UPDATE users SET username = :username WHERE id = :id;";
@@ -74,10 +83,11 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public void updatePassword(Users user) {
-        String sql = "UPDATE users SET password = :password WHERE id = :id;";
+        String sql = "UPDATE users SET password = :password, salt = :salt WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
             con.createQuery(sql)
                     .addParameter("password",user.getPassword())
+                    .addParameter("salt",user.getSalt())
                     .addParameter("id",user.getId())
                     .executeUpdate();
         }

@@ -4,6 +4,7 @@ import security.Hashing;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Users {
@@ -37,7 +38,7 @@ public class Users {
         return trees_planted == users.trees_planted &&
                 inClan == users.inClan &&
                 Objects.equals(username, users.username) &&
-                Objects.equals(password, users.password) &&
+                Arrays.equals(salt, users.salt) &&
                 Objects.equals(email, users.email) &&
                 Objects.equals(display_name, users.display_name) &&
                 Objects.equals(clan_name, users.clan_name);
@@ -45,7 +46,7 @@ public class Users {
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, email, display_name, trees_planted, inClan, clan_name);
+        return Objects.hash(username, email, display_name, trees_planted, inClan, clan_name);
     }
 
     public int getId() {
@@ -70,9 +71,11 @@ public class Users {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
         if(!password.isEmpty()){
             this.password = password;
+            this.salt = Hashing.salt();
+            securePassword();
         }
     }
 
@@ -120,13 +123,8 @@ public class Users {
         return salt;
     }
 
-    public void setSalt(byte[] salt) {
-        this.salt = salt;
-    }
-
     public void securePassword() throws InvalidKeySpecException, NoSuchAlgorithmException {
-        String saltedPass = Hashing.generateHash(this.salt,this.password);
-        setPassword(saltedPass);
+        this.password = Hashing.generateHash(this.salt, this.password);
     }
 
     public static String verifyPassword(byte[] salt, String password) throws InvalidKeySpecException, NoSuchAlgorithmException {
