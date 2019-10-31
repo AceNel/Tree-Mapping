@@ -5,11 +5,15 @@ import java.util.Objects;
 public class Tree {
     private String name;
     private String species;
+    private String latitude;
+    private String longitude;
     private int id;
 
-    public Tree(String name, String species) {
+    public Tree(String name, String species, String latitude, String longitude) {
         this.name = name;
         this.species = species;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
@@ -18,12 +22,14 @@ public class Tree {
         if (o == null || getClass() != o.getClass()) return false;
         Tree tree = (Tree) o;
         return Objects.equals(name, tree.name) &&
-                Objects.equals(species, tree.species);
+                Objects.equals(species, tree.species) &&
+                Objects.equals(latitude, tree.latitude) &&
+                Objects.equals(longitude, tree.longitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, species);
+        return Objects.hash(name, species, latitude, longitude);
     }
 
     public String getName() {
@@ -48,5 +54,21 @@ public class Tree {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

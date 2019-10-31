@@ -27,7 +27,7 @@ public class SQL2oTreeDaoTest {
         Users user = newUser();
         System.out.println("Tree counter: " +user.getTrees_planted());
         Tree tree = newTree();
-        userDao.plantNewTree(user,tree,"s-23498j34","24n234-234");
+        userDao.plantNewTree(user,tree,tree.getLatitude(),tree.getLongitude());
         assertEquals(1,user.getTrees_planted());
     }
 
@@ -43,12 +43,18 @@ public class SQL2oTreeDaoTest {
         Users user = newUser();
         Tree tree = newTree();
         Tree tree1 = newTree2();
-        userDao.plantNewTree(user,tree,"s-23498j34","24n234-234");
-        userDao.plantNewTree(user,tree1,"s-23sd8j34","24368-234");
+        userDao.plantNewTree(user,tree,tree.getLatitude(),tree.getLongitude());
+        userDao.plantNewTree(user,tree1,tree1.getLatitude(),tree1.getLongitude());
         assertEquals(2,treeDao.getTreesPlantedByUser(user.getId()).size());
     }
 
-
+    @Test
+    public void getCoordinatesOfTree() throws Exception{
+        Users user = newUser();
+        Tree tree = newTree();
+        userDao.plantNewTree(user,tree,tree.getLatitude(),tree.getLongitude());
+        assertEquals("002",treeDao.findTreeById(tree.getId()).getLongitude());
+    }
 
 
     /*------------HELPERS------------*/
@@ -65,13 +71,13 @@ public class SQL2oTreeDaoTest {
     }
 
     private Tree newTree(){
-        Tree tree = new Tree("Moringa","Arabuko sokoke");
+        Tree tree = new Tree("Moringa","Arabuko sokoke","001","002");
         treeDao.addTree(tree);
         return tree;
     }
 
     private Tree newTree2(){
-        Tree tree = new Tree("Mwarubaini","Sijui species");
+        Tree tree = new Tree("Mwarubaini","Sijui species","003","004");
         treeDao.addTree(tree);
         return tree;
     }

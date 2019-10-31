@@ -10,9 +10,9 @@ public interface TreeDao {
     void userPlantTree(int userId, int treeId, String latitude, String longitude);
 
     //read
+    Tree findTreeById(int treeId);
     List<Tree> getAllTrees();
     List<Tree> getTreesPlantedByUser(int userId);
-    List<String> getTreePositionByUserId(int userId);
 
     //update
 

@@ -13,7 +13,7 @@ public class SQL2oTreeDao implements TreeDao {
 
     @Override
     public void addTree(Tree tree) {
-        String sql = "INSERT INTO trees(name, species) values(:name, :species);";
+        String sql = "INSERT INTO trees(name, species, latitude, longitude) values(:name, :species, :latitude, :longitude);";
         try(Connection con = DB.sql2o.open()){
             int id = (int) con.createQuery(sql,true)
                     .bind(tree)
@@ -50,6 +50,16 @@ public class SQL2oTreeDao implements TreeDao {
     }
 
     @Override
+    public Tree findTreeById(int treeId) {
+        String sql = "SELECT * FROM trees WHERE id = :id";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id", treeId)
+                    .executeAndFetchFirst(Tree.class);
+        }
+    }
+
+    @Override
     public List<Tree> getTreesPlantedByUser(int userId) {
         List<Tree> allTrees = new ArrayList<>();
 
@@ -72,13 +82,5 @@ public class SQL2oTreeDao implements TreeDao {
         return allTrees;
     }
 
-    @Override
-    public List<String> getTreePositionByUserId(int userId) {
-        String sql = "SELECT latitude,longitude FROM trees_planted WHERE id = :id;";
-        try(Connection con = DB.sql2o.open()){
-            return con.createQuery(sql)
-                    .addParameter("id",userId)
-                    .executeAndFetch(String.class);
-        }
-    }
+
 }
