@@ -38,6 +38,16 @@ public class SQL2oTreeDaoTest {
         assertEquals(2,treeDao.getAllTrees().size());
     }
 
+    @Test
+    public void getTreePlantedByUser() throws Exception{
+        Users user = newUser();
+        Tree tree = newTree();
+        Tree tree1 = newTree2();
+        userDao.plantNewTree(user,tree,"s-23498j34","24n234-234");
+        userDao.plantNewTree(user,tree1,"s-23sd8j34","24368-234");
+        assertEquals(2,treeDao.getTreesPlantedByUser(user.getId()).size());
+    }
+
 
 
 
