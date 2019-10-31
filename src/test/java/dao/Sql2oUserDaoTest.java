@@ -5,11 +5,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
 public class Sql2oUserDaoTest {
-    Sql2oUserDao userDao = new Sql2oUserDao();
+    private Sql2oUserDao userDao = new Sql2oUserDao();
 
     @Rule
     public DatabaseRule databaseRule = new DatabaseRule();
@@ -29,6 +30,21 @@ public class Sql2oUserDaoTest {
     }
 
     @Test
+    public void getAllUsers() throws Exception{
+        Users user = newUser();
+        Users user2 = newUser2();
+        assertEquals(2, userDao.allUsers().size());
+    }
+
+    @Test
+    public void findParticularUser() throws Exception{
+        Users user = newUser();
+        Users userFound = userDao.findUser(user.getId());
+        userFound.setPassword(userDao.findPasswordById(user.getId()));
+        assertTrue(user.equals(userFound));
+    }
+
+    @Test (expected = UnsupportedOperationException.class)
     public void uniqueUsername_cannotRegisterWithExistingUsername() throws Exception {
         Users user = newUser();
         Users user2 = newUser();
@@ -36,11 +52,14 @@ public class Sql2oUserDaoTest {
     }
 
     @Test
-    public void findUser_int() throws Exception{
+    public void uniqueUsername_wrapWithTryCatch() throws Exception {
         Users user = newUser();
-        Users user2 = newUser2();
-        assertEquals(2,userDao.allUsers().size());
-        assertTrue(user2.equals(userDao.allUsers().get(1)));
+        try{
+            Users user2 = newUser();
+        } catch (UnsupportedOperationException ex){
+            System.out.println(ex);
+        }
+        assertEquals(1,userDao.allUsers().size());
     }
 
     @Test
@@ -55,7 +74,23 @@ public class Sql2oUserDaoTest {
     @Test
     public void updateUsername() throws Exception{
         Users user = newUser();
+        user.setUsername("notUsername");
+        userDao.updateUsername(user);
+        Users foundUser = userDao.findUser(user.getId());
+        assertNotEquals("username",foundUser.getUsername());
+        assertEquals("notUsername",foundUser.getUsername());
+    }
 
+    @Test
+    public void updatePassword() throws Exception {
+        Users user = newUser();
+        byte[] oldSalt = user.getSalt();
+        String oldPassword = user.getPassword();
+        user.updateSaltedPassword("000000");
+        userDao.updatePassword(user);
+        Users foundUser = userDao.findUser(user.getId());
+        assertNotEquals(oldSalt,foundUser.getSalt());
+        assertNotEquals(oldPassword,foundUser.getPassword());
     }
 
 
