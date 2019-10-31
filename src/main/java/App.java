@@ -23,12 +23,12 @@ public class App {
 
                 get("/users", (req, res)->{
                         Map<String,Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "all-users.hbs");
+                        return new ModelAndView(model, "users.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
-                        return  new ModelAndView(model, "all-clans.hbs");
+                        return  new ModelAndView(model, "clans.hbs");
                 },new HandlebarsTemplateEngine());
 
                 post("/clans/new",(req, res)->{
@@ -68,7 +68,7 @@ public class App {
 
                 get("/clans/:id/users", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "ureturnreturnsers.hbs");
+                        return new ModelAndView(model, "users.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans/:id/trees", (req, res)->{

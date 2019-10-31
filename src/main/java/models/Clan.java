@@ -9,7 +9,7 @@ public class Clan {
     private int total_members;
     private String clanDescription;
     private int user_id;
-    private static ArrayList<Users> members = new ArrayList<>();
+    private String members;
     private static ArrayList<Clan> instances = new ArrayList<Clan>();
     private int clanSize;
 
@@ -64,6 +64,10 @@ public class Clan {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public void setclanId(int clanId) {
+        this.clanId = clanId;
     }
 
     public void setClanMembers(Clan newClan) {
