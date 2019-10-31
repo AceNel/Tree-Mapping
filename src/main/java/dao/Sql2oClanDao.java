@@ -70,6 +70,7 @@ public class Sql2oClanDao implements ClanDao {
             } catch (Sql2oException ex){
                 System.out.println(ex);
             }
+            
         }
     @Override
     public void clearAll() {

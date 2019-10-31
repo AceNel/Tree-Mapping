@@ -44,7 +44,7 @@ public class Sql2oClanDaoTest {
 
     //Helper
     private Users newUser() throws Exception{
-        Users user = new Users("username","asdf");
+        Users user = new Users("username","atyf");
         userDao.add(user);
         return user;
     }
