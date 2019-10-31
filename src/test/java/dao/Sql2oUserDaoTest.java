@@ -37,10 +37,17 @@ public class Sql2oUserDaoTest {
     }
 
     @Test
-    public void findParticularUser() throws Exception{
+    public void findParticularUserById() throws Exception{
         Users user = newUser();
-        Users userFound = userDao.findUser(user.getId());
+        Users userFound = userDao.findUserById(user.getId());
         userFound.setPassword(userDao.findPasswordById(user.getId()));
+        assertTrue(user.equals(userFound));
+    }
+
+    @Test
+    public void findUserByUsername() throws Exception{
+        Users user = newUser();
+        Users userFound = userDao.findUserByUsername("username");
         assertTrue(user.equals(userFound));
     }
 
@@ -76,7 +83,7 @@ public class Sql2oUserDaoTest {
         Users user = newUser();
         user.setUsername("notUsername");
         userDao.updateUsername(user);
-        Users foundUser = userDao.findUser(user.getId());
+        Users foundUser = userDao.findUserById(user.getId());
         assertNotEquals("username",foundUser.getUsername());
         assertEquals("notUsername",foundUser.getUsername());
     }
@@ -88,7 +95,7 @@ public class Sql2oUserDaoTest {
         String oldPassword = user.getPassword();
         user.updateSaltedPassword("000000");
         userDao.updatePassword(user);
-        Users foundUser = userDao.findUser(user.getId());
+        Users foundUser = userDao.findUserById(user.getId());
         assertNotEquals(oldSalt,foundUser.getSalt());
         assertNotEquals(oldPassword,foundUser.getPassword());
     }
@@ -106,7 +113,5 @@ public class Sql2oUserDaoTest {
         userDao.add(user);
         return user;
     }
-
-
 
 }

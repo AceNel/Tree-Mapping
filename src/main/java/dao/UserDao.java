@@ -13,9 +13,10 @@ public interface UserDao {
     //read
     byte[] getUserSalt(String username);
     List<Users> allUsers();
-    Users findUser(int userId);
+    Users findUserById(int userId);
     int getTreesPlanted(int userId);
     String findPasswordById(int userId);
+    Users findUserByUsername(String username);
 
     //update
     void updateUsername(Users user);

@@ -9,7 +9,7 @@ public class SQL2oTreeDao implements TreeDao {
 
     @Override
     public void addTree(Tree tree) {
-        String sql = "INSERT INTO trees(name, species);";
+        String sql = "INSERT INTO trees(name, species) values(:name, :species);";
         try(Connection con = DB.sql2o.open()){
             int id = (int) con.createQuery(sql,true)
                     .bind(tree)
