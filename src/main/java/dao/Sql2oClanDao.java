@@ -8,28 +8,28 @@ import org.sql2o.Sql2oException;
 import java.util.List;
 
 public class Sql2oClanDao implements ClanDao {
-    private final Sql2o sql2o;
-    public Sql2oClanDao(Sql2o sql2o){
-        this.sql2o = sql2o;
-    }
+    public Sql2oClanDao(){}
 //Add a clan to the database
     @Override
     public void add(Clan clan) {
-        String sql = "INSERT INTO clan(clanname, total_members, clanDescription, users_id) values (:clanname, :total_members, :clanDescription, :users_id)";
+        String sql = "INSERT INTO clan(clanname, total_members, clandescription) values (:clanname, :total_members, :clandescription)";
         try(Connection con = DB.sql2o.open()){
             int id = (int) con.createQuery(sql,true)
-                    .bind(clan)
+                    .addParameter("clanname",clan.getClanName())
+                    .addParameter("total_members",clan.getTotal_members())
+                    .addParameter("clandescription",clan.getClanDescription())
                     .executeUpdate()
                     .getKey();
             clan.setClanId(id);
         } catch (Sql2oException ex){
             System.out.println("Failed to Add: "+ex);
+
         }
     }
 // Fetch clans from the database
     @Override
     public List<Clan> getAll() {
-        try (Connection con = sql2o.open()) {
+        try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM clan")
                     .executeAndFetch(Clan.class);
         }
@@ -37,7 +37,7 @@ public class Sql2oClanDao implements ClanDao {
 //Find Clan
     @Override
     public Clan findById(int ClanId) {
-        try (Connection con = sql2o.open()) {
+        try (Connection con = DB.sql2o.open()) {
             return con.createQuery("SELECT * FROM clan WHERE id = :id")
                     .addParameter("ClanId", ClanId)
                     .executeAndFetchFirst(Clan.class);
@@ -47,7 +47,7 @@ public class Sql2oClanDao implements ClanDao {
     @Override
     public void update(String clanName, int total_members, String clanDescription, int user_id) {
         String sql = "UPDATE clan SET (clanname, total_members, clanDescription, users_id) = (:clanname, :total_members, :clanDescription, :users_id) WHERE id=:id"; //CHECK!!!
-        try (Connection con = sql2o.open()) {
+        try (Connection con = DB.sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("clanname", clanName)
                     .addParameter("total_members", total_members)
@@ -63,7 +63,7 @@ public class Sql2oClanDao implements ClanDao {
         @Override
         public void deleteById(int ClanId) {
             String sql = "DELETE from clan WHERE id = :id"; //raw sql
-            try (Connection con = sql2o.open()) {
+            try (Connection con = DB.sql2o.open()) {
                 con.createQuery(sql)
                         .addParameter("ClanId", ClanId)
                         .executeUpdate();
@@ -74,7 +74,7 @@ public class Sql2oClanDao implements ClanDao {
     @Override
     public void clearAll() {
         String sql = "DELETE from clan";
-        try (Connection con = sql2o.open()) {
+        try (Connection con = DB.sql2o.open()) {
             con.createQuery(sql).executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);
