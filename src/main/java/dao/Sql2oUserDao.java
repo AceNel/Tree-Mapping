@@ -1,6 +1,7 @@
 package dao;
 
 import models.Clan;
+import models.Tree;
 import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
@@ -8,6 +9,8 @@ import org.sql2o.Sql2oException;
 import java.util.List;
 
 public class Sql2oUserDao implements UserDao {
+    SQL2oTreeDao treeDao = new SQL2oTreeDao();
+
     public Sql2oUserDao(){}
 
     @Override
@@ -49,7 +52,17 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public Users findUser(int userId) {
+    public Users findUserByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = :username;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("username",username)
+                    .executeAndFetchFirst(Users.class);
+        }
+    }
+
+    @Override
+    public Users findUserById(int userId) {
         String sql = "SELECT * FROM users WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
@@ -127,6 +140,18 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
+    public void joinClan(Users user, Clan clan) {
+        String sql = "UPDATE users SET inclan = 'true', clan_name = :clan_name WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("clan_name",user.getClan_name())
+                    .addParameter("id",user.getId())
+                    .executeUpdate();
+            // TODO: 10/30/19 ADD clan name parameter here!!
+        }
+    }
+
+    @Override
     public int getTreesPlanted(int userId) {
         String sql = "SELECT trees_planted FROM users WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
@@ -137,15 +162,10 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public void joinClan(Users user, Clan clan) {
-        String sql = "UPDATE users SET inclan = 'true', clan_name = :clan_name WHERE id = :id;";
-        try(Connection con = DB.sql2o.open()){
-            con.createQuery(sql)
-                    .addParameter("clan_name",user.getClan_name())
-                    .addParameter("id",user.getId())
-                    .executeUpdate();
-            // TODO: 10/30/19 ADD clan name parameter here!! 
-        }
+    public void plantNewTree(Users user, Tree tree, String latitude, String longitude){
+        user.plantTree();
+        updateTreesPlanted(user);
+        treeDao.userPlantTree(user.getId(),tree.getId(),latitude,longitude);
     }
 
     /* ------- PRIVATE METHODS -------*/
