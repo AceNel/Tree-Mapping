@@ -11,14 +11,14 @@ public class DatabaseRule extends ExternalResource {
     }
 
     protected void after(){
-        /*try(Connection con = DB.sql2o.open()) {
+        try(Connection con = DB.sql2o.open()) {
             String deleteUsers = "DELETE FROM users *;";
             String deleteTrees = "DELETE FROM trees *;";
             String deleteTreesPlaned = "DELETE FROM trees_planted *;";
             con.createQuery(deleteUsers).executeUpdate();
             con.createQuery(deleteTrees).executeUpdate();
             con.createQuery(deleteTreesPlaned).executeUpdate();
-        }*/
+        }
     }
 
 }

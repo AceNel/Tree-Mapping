@@ -5,6 +5,8 @@ import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
+import java.util.List;
+
 public class SQL2oTreeDao implements TreeDao {
     public SQL2oTreeDao(){}
 
@@ -37,6 +39,32 @@ public class SQL2oTreeDao implements TreeDao {
         }
     }
 
+    @Override
+    public List<Tree> getAllTrees() {
+        String sql = "SELECT * FROM trees;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .executeAndFetch(Tree.class);
+        }
+    }
 
+    @Override
+    public List<Tree> getTreesPlantedByUser(int userId) {
+        String sql = "SELECT * FROM trees WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id",userId)
+                    .executeAndFetch(Tree.class);
+        }
+    }
 
+    @Override
+    public List<String> getTreePositionByUserId(int userId) {
+        String sql = "SELECT latitude,longitude FROM trees_planted WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id",userId)
+                    .executeAndFetch(String.class);
+        }
+    }
 }

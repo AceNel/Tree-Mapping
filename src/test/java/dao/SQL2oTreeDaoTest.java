@@ -28,6 +28,14 @@ public class SQL2oTreeDaoTest {
         System.out.println("Tree counter: " +user.getTrees_planted());
         Tree tree = newTree();
         userDao.plantNewTree(user,tree,"s-23498j34","24n234-234");
+        assertEquals(1,user.getTrees_planted());
+    }
+
+    @Test
+    public void getAllTrees()throws Exception{
+        Tree tree = newTree();
+        Tree tree1 = newTree2();
+        assertEquals(2,treeDao.getAllTrees().size());
     }
 
 
@@ -48,6 +56,12 @@ public class SQL2oTreeDaoTest {
 
     private Tree newTree(){
         Tree tree = new Tree("Moringa","Arabuko sokoke");
+        treeDao.addTree(tree);
+        return tree;
+    }
+
+    private Tree newTree2(){
+        Tree tree = new Tree("Mwarubaini","Sijui species");
         treeDao.addTree(tree);
         return tree;
     }
