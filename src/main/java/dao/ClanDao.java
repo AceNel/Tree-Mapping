@@ -10,7 +10,7 @@ public interface ClanDao {
     void add(Clan clan);
 
     //read
-    List<Clan> getAll(int ClanId);
+    List<Clan> getAll();
     Clan findById(int ClanId);
 
     //update
