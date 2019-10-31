@@ -1,6 +1,7 @@
 package dao;
 
 import models.Tree;
+import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
@@ -18,6 +19,21 @@ public class SQL2oTreeDao implements TreeDao {
             tree.setId(id);
         } catch (Sql2oException ex){
             System.out.println("Failed to Add: "+ex);
+        }
+    }
+
+    @Override
+    public void userPlantTree(int userId, int treeId, String latitude, String longitude){
+        String sql = "INSERT INTO trees_planted(userid, treeid, latitude, longitude) values (:userid, :treeid, :latitude, :longitude);";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("userid",userId)
+                    .addParameter("treeid",treeId)
+                    .addParameter("latitude",latitude)
+                    .addParameter("longitude",longitude)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println("Failed to plant tree: "+ex);
         }
     }
 

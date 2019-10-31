@@ -2,6 +2,7 @@ package dao;
 
 import models.Tree;
 import models.Users;
+import org.eclipse.jetty.server.Authentication;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -19,6 +20,14 @@ public class SQL2oTreeDaoTest {
         Tree tree = newTree();
         System.out.println(tree.getId());
         assertNotEquals(0,tree.getId());
+    }
+
+    @Test
+    public void userCanPlantTree_true() throws Exception{
+        Users user = newUser();
+        System.out.println("Tree counter: " +user.getTrees_planted());
+        Tree tree = newTree();
+        userDao.plantNewTree(user,tree,"s-23498j34","24n234-234");
     }
 
 
