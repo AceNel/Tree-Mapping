@@ -18,8 +18,7 @@ public class Sql2oUserDaoTest {
     @Test
     public void getId_userIsInsertedIntoDatabase_int() throws Exception {
         Users user = newUser();
-        assertNotEquals(0,user.getId());
-    }
+        assertNotEquals(0,user.getId()); }
 
     @Test
     public void verifyHashedPassword_true() throws Exception {
