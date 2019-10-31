@@ -6,9 +6,76 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
     <link rel='stylesheet' type="text/css" href='/css/styles.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-<p>works</p>
+<body style="background-image: url('bgimage.jpg')">
+
+<div class="vertical-nav bg-white mt-5" id="sidebar">
+    <div class="py-4 px-3 mb-4">
+        <div class="  align-items-center text-center"><img  src="https://us.123rf.com/450wm/salamatik/salamatik1801/salamatik180100019/92979836-stock-vector-profile-anonymous-face-icon-gray-silhouette-person-male-default-avatar-photo-placeholder-isolated-on.jpg?ver=6" alt="..." width="65" class="mx-auto rounded-circle img-thumbnail shadow-sm">
+            <div>
+                <h4>Your Name</h4>
+                <p class="font-weight-light text-muted mb-0">@Your_Username</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ml-5">
+    <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark  bg-light">
+                <i class="fa fa-tree mr-3 text-primary fa-fw"></i>
+                Plant A Tree
+            </a>
+        </li>
+        <li class="nav-item mt-3">
+            <a href="#" class="nav-link text-dark ">
+                <i class="fa fa-tree mr-3 text-primary fa-fw"></i>
+                Trees Planted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark">
+                <i class="fa fa-signal mr-3 text-primary"></i>
+                Your Points
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark">
+                <i class="fa fa-users text-primary mr-3"></i>
+                Your Clan
+            </a>
+        </li>
+    </ul>
+
+
+    <ul class="nav flex-column bg-white mb-0 ">
+
+        <li class="nav-item mt-3">
+            <a href="#" class="nav-link text-dark ">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                LeaderBoard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark ">
+                <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item mt-5">
+            <a href="#" class="nav-link">
+                <i class="fa fa-sign-out text-primary"></i>
+                Sign Out
+            </a>
+        </li>
+    </ul>
+    </div>
+</div>
+
+<button id="sidebarCollapse" type="button" class="btn btn-light bg-white  px-4 mb-4"><i class="fa fa-bars mr-2 text-primary "></i>Menu</button>
+
+
 <div class="container">
     {{#block "content" }}
     {{/block }}
@@ -19,7 +86,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+    <script>
+        $(function() {
+  $('#sidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});
+    </script>
 
     </body>
     </html>
