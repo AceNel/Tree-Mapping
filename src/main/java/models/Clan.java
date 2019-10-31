@@ -46,10 +46,6 @@ public class Clan {
         return instances;
     }
 
-    public int getClanSize() {
-        return clanSize;
-    }
-
     public void setClanName(String clanName) {
         this.clanName = clanName;
     }
@@ -70,10 +66,7 @@ public class Clan {
         this.user_id = user_id;
     }
 
-    public void setClanSize(int clanSize) {
-        this.clanSize = clanSize;
-    }
-    public void setSquadMembers(Clan newClan) {
+    public void setClanMembers(Clan newClan) {
         instances.add(newClan);
     }
 
