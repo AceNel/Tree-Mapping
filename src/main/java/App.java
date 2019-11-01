@@ -1,5 +1,6 @@
 import dao.SQL2oTreeDao;
 import dao.Sql2oClanDao;
+import dao.Sql2oUserDao;
 import models.Clan;
 import models.Tree;
 import models.Users;
@@ -16,6 +17,7 @@ public class App {
         public static void main(String[] args){
                 Sql2oClanDao clanDao = new Sql2oClanDao();
                 SQL2oTreeDao treeDao = new SQL2oTreeDao();
+                Sql2oUserDao userDao = new Sql2oUserDao();
                 staticFileLocation("public");
 
 
@@ -38,7 +40,9 @@ public class App {
 
                 get("/users", (req, res)->{
                         Map<String,Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "users.hbs");
+                        List<Users> users = userDao.allUsers();
+                        model.put("users", users);
+                        return new ModelAndView(model, "templates/users.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans", (req, res)->{
@@ -82,7 +86,7 @@ public class App {
                         Map<String, Object> model = new HashMap<String, Object>();
                         List<Tree> trees = treeDao.getAllTrees();
                         model.put("trees", trees);
-                        return new ModelAndView(model, "trees.hbs");
+                        return new ModelAndView(model, "templates/trees.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans", (req, res)->{
@@ -92,17 +96,17 @@ public class App {
 
                 get("/clans/:id/users", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "users.hbs");
+                        return new ModelAndView(model, "templates/users.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans/:id/trees", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "trees.hbs");
+                        return new ModelAndView(model, "templates/trees.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/users/:id/trees", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
-                        return new  ModelAndView(model, "trees.hbs");
+                        return new  ModelAndView(model, "templates/trees.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/trees/add", (req, res)->{
