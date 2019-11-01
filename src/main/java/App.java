@@ -85,9 +85,9 @@ public class App {
 
                 get("/trees/:id", (req, res)->{
                         Map<String, Object> model =  new HashMap<String, Object>();
-                        int id = Integer.parseInt(req.queryParams(":id"));
-                        Tree tree = treeDao.findTreeById(id);
-                        model.put("tree", tree);
+//                        int id = Integer.parseInt(req.queryParams(":id"));
+//                        Tree tree = treeDao.findTreeById(id);
+//                        model.put("tree", tree);
                         return new ModelAndView(model, "new-tree.hbs");
                 }, new HandlebarsTemplateEngine());
 
@@ -108,7 +108,8 @@ public class App {
                 get("/clans/:id/users", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
                         int id = Integer.parseInt(req.queryParams(":id"));
-//                        Users user =
+                        Clan clan = clanDao.findById(id);
+                        List<Users> users = clanDao.getClanMembers(clan);
                         return new ModelAndView(model, "templates/users.hbs");
                 }, new HandlebarsTemplateEngine());
 
@@ -125,7 +126,6 @@ public class App {
                         Map<String, Object> model = new HashMap<String, Object>();
                         return new ModelAndView(model, "tree-form.hbs");
                 }, new HandlebarsTemplateEngine());
-
 
 
         }

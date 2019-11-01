@@ -1,9 +1,26 @@
 {{#partial "content"}}
 
-    {{#each trees}}
-        {{species}}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">name</th>
+            <th scope="col">species</th>
+            <th scope="col">view details</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each users}}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{name}}</td>
+                <td>{{species}}</td>
+                <td><i class="fa fa-eye text-info"></i></td>
+            </tr>
+        {{/each}}
 
-    {{/each}}
+        </tbody>
+    </table>
 
 
 {{/partial}}
