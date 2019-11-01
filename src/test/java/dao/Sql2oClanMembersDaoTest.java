@@ -36,6 +36,15 @@ public class Sql2oClanMembersDaoTest {
         assertEquals(2,clanDao.getClanMembers(clan).size());
     }
 
+    @Test
+    public void plantTreeWhileInClan_updateUserPts()throws Exception{
+        Users user = newUser();
+        Users user2 = newUser2();
+        Clan clan = newClan();
+        Tree tree = newTree();
+        userDao.joinClan(user,clan);
+        userDao.plantNewTree(user,tree,tree.getLatitude(),tree.getLongitude());
+    }
 
 
     /*------------HELPERS------------*/

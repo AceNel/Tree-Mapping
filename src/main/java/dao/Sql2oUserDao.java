@@ -136,7 +136,9 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("id",user.getId())
                     .executeUpdate();
 
-            // TODO: 10/30/19 branch: IF user is in clan, update tree_pts too 
+            if(user.isInClan()){
+                clanMembersDao.updateUserTreePoints(user);
+            }
         }
     }
 
