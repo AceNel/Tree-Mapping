@@ -69,16 +69,25 @@ public class App {
 
                 get("/users/:id", (req, res)->{
                         Map<String , Object> model = new HashMap<String, Object>();
+                        int id = Integer.parseInt(req.queryParams(":id"));
+                        Users user = userDao.findUserById(id);
+                        model.put("user", user);
                         return  new ModelAndView(model, "new-User.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans/:id", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        int id = Integer.parseInt(req.queryParams(":id"));
+                        Clan clan = clanDao.findById(id);
+                        model.put("clan", clan);
                         return  new ModelAndView(model, "new-clan.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/trees/:id", (req, res)->{
                         Map<String, Object> model =  new HashMap<String, Object>();
+                        int id = Integer.parseInt(req.queryParams(":id"));
+                        Tree tree = treeDao.findTreeById(id);
+                        model.put("tree", tree);
                         return new ModelAndView(model, "new-tree.hbs");
                 }, new HandlebarsTemplateEngine());
 
@@ -91,21 +100,24 @@ public class App {
 
                 get("/clans", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        List<Clan> clans =  clanDao.getAll();
+                        model.put("clans", clans);
                         return new ModelAndView(model, "clans.hbs");
                 }, new HandlebarsTemplateEngine());
 
                 get("/clans/:id/users", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        int id = Integer.parseInt(req.queryParams(":id"));
+//                        Users user =
                         return new ModelAndView(model, "templates/users.hbs");
                 }, new HandlebarsTemplateEngine());
 
-                get("/clans/:id/trees", (req, res)->{
-                        Map<String, Object> model = new HashMap<String, Object>();
-                        return new ModelAndView(model, "templates/trees.hbs");
-                }, new HandlebarsTemplateEngine());
 
                 get("/users/:id/trees", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        int id = Integer.parseInt(req.queryParams(":id"));
+                        List<Tree> trees = treeDao.getTreesPlantedByUser(id);
+                        model.put("trees", trees);
                         return new  ModelAndView(model, "templates/trees.hbs");
                 }, new HandlebarsTemplateEngine());
 
