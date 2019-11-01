@@ -1,8 +1,26 @@
 {{#partial "content"}}
 
-    {{#each users}}
-        {{username}}
-    {{/each}}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">username</th>
+            <th scope="col">clan name</th>
+            <th scope="col">view details</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each users}}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{username}}</td>
+                <td>{{clan_name}}</td>
+                <td><i class="fa fa-eye text-info"></i></td>
+            </tr>
+        {{/each}}
+
+        </tbody>
+    </table>
 
 {{/partial}}
 {{>layout.hbs}}
