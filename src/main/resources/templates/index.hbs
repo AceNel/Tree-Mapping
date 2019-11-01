@@ -1,0 +1,37 @@
+{{#partial "content"}}
+    <div class="row">
+
+            <div class="col">
+                <div class="ml-1 bg-white" style="border-right: 1px solid black">
+                    <h2 class="text-center mt-5">GROOT</h2>
+                     <img src="images/images.jpg" width="550" alt="">
+                    <h5 class="text-center pb-3 pt-3 ml-1 mr-3">The true meaning of life is to plant trees, under whose shade do you expect to sit</h5>
+            </div>
+        </div>
+        <div class="col bg-white  mr-3" style="width: 35; height: 100%; z-index: 9; top: 0;">
+            <h3 class="text-center pt-3 pb-5">Register Now</h3>
+            <form action="users/new" method="post" style="height: 100%;" class="mr-5">
+                <div class="form-group">
+                    <input type="text" class="form-control col-xs-4" id="name" name="name" placeholder="name">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control col-xs-4" id="username" placeholder="username" name="username">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control col-xs-4" id="email" name="email" placeholder="email">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control col-xs-4" name="clan" placeholder="clan" id="clan">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control col-xs-4" placeholder="password" name="password" id="password">
+                </div>
+              <div class="text-center mt-5 pb-5">
+                  <button type="submit" class="btn btn-info">Submit</button>
+              </div>
+            </form>
+        </div>
+    </div>
+{{/partial}}
+{{>layout.hbs}}
