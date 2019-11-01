@@ -1,6 +1,6 @@
 {{#partial "content"}}
 
-    <table class="table table-striped">
+    <table class="table table-striped" style="background-color: #98ff98">
         <thead>
         <tr>
             <th scope="col"></th>
@@ -15,7 +15,7 @@
                 <th scope="row">1</th>
                 <td>{{name}}</td>
                 <td>{{species}}</td>
-                <td><i class="fa fa-eye text-info"></i></td>
+                <td><a href="/users/{{id}}"><i class="fa fa-eye text-info"></i></a></td>
             </tr>
         {{/each}}
 
