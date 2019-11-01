@@ -1,3 +1,4 @@
+import models.Users;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -18,6 +19,13 @@ public class App {
 
                 post("/users/new", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        String name = req.queryParams("name");
+                        String username = req.queryParams("username");
+                        String email = req.queryParams("email");
+                        String clan = req.queryParams("clan");
+                        String password = req.queryParams("password");
+                        Users user = new Users(username, password);
+                        model.put("user", user);
                         return new ModelAndView(model, "new-User.hbs");
                 }, new HandlebarsTemplateEngine());
 

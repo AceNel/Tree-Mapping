@@ -2,23 +2,24 @@
 <html>
 <head>
     <title>{{#block "title" }}Groot{{/block}}</title>
-
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
     <link rel='stylesheet' type="text/css" href='/css/styles.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-    <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+            type="text/javascript" charset="utf-8"></script>
 
 </head>
-<body style="background-image: url('images/bgimage.jpg')">
+<body id="body">
 
 <div class="vertical-nav bg-white mt-5" id="sidebar" style="display: hidden;">
     <div class="py-4 px-3 mb-4">
         <div class="  align-items-center text-center"><img  src="https://us.123rf.com/450wm/salamatik/salamatik1801/salamatik180100019/92979836-stock-vector-profile-anonymous-face-icon-gray-silhouette-person-male-default-avatar-photo-placeholder-isolated-on.jpg?ver=6" alt="..." width="65" class="mx-auto rounded-circle img-thumbnail shadow-sm">
-            <div>
-                <h4>Your Name</h4>
+            <div class="media-body">
+                <h4 class="m-0">Your Name</h4>
                 <p class="font-weight-light text-muted mb-0">@Your_Username</p>
             </div>
         </div>
@@ -27,25 +28,25 @@
     <div class="ml-5">
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark  bg-light">
+            <a href="trees/new" class="nav-link text-dark  bg-light">
                 <i class="fa fa-tree mr-3 text-primary fa-fw"></i>
                 Plant A Tree
             </a>
         </li>
         <li class="nav-item mt-3">
-            <a href="#" class="nav-link text-dark ">
+            <a href="/trees" class="nav-link text-dark ">
                 <i class="fa fa-tree mr-3 text-primary fa-fw"></i>
                 Trees Planted
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark">
+            <a href="/users/id" class="nav-link text-dark">
                 <i class="fa fa-signal mr-3 text-primary"></i>
                 Your Points
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark">
+            <a href="/clans/id" class="nav-link text-dark">
                 <i class="fa fa-users text-primary mr-3"></i>
                 Your Clan
             </a>
@@ -56,22 +57,26 @@
     <ul class="nav flex-column bg-white mb-0 ">
 
         <li class="nav-item mt-3">
-            <a href="#" class="nav-link text-dark ">
+            <a href="/leaderboard" class="nav-link text-dark ">
                 <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
                 LeaderBoard
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark ">
+            <a href="/users/:id" class="nav-link text-dark ">
                 <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
                 Dashboard
             </a>
         </li>
         <li class="nav-item mt-5">
-            <a href="#" class="nav-link">
+            <a href="/" class="nav-link">
                 <i class="fa fa-sign-out text-primary"></i>
                 Sign Out
             </a>
+        </li>
+        <button id="darkmode"  type="button"class="btn btn-transparent">
+            <i  class="fa fa-bulb text-info"></i>
+        </button>
         </li>
     </ul>
     </div>
@@ -80,10 +85,10 @@
      <h4 id="sidebarCollapse"  class=" bg-transparent  px-4 mb-4 mt-2"><i class="fa fa-bars mr-2 text-primary "></i>Menu</h4>
 </div>
 
-
+<div class="page-content" id="content">
     {{#block "content" }}
     {{/block }}
-
+</div>
 
 {{#block "footer" }}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -95,7 +100,13 @@
     $('#sidebar, #content').toggleClass('active');
 <!--    $('#menu').toggleClass('show);-->
   });
+$('#darkmode').on('click', function() {
+    $('#body).toggleClass('active');
+<!--    $('#menu').toggleClass('show);-->
+  });
 });
+
+
     </script>
 
     </body>
