@@ -1,26 +1,5 @@
-{{#partial "content"}}
-
-
-    <div id="markers-on-the-map">
-    <div class="page-header">
-        <h1>TREE DETAILS AND LOCATION</h1>
-        <p>Tree Name</p>
-            </div>
-    <div id="map" style="width: 95%; height: 450px; background: #98ff98;"></div>
-
-    <script>
-
-        @param  {H.Map} map      A HERE Map instance within the application
- */
-function moveMapToBerlin(map){
-  map.setCenter({lat:52.5159, lng:13.3777});
-  map.setZoom(14);
-}
-
-//Step 1: initialize communication with the platform
-// In your own code, replace variable window.apikey with your own apikey
 var platform = new H.service.Platform({
-  apikey: RTJDdxGlsimA2vSBKjnH;
+  apikey: RTJDdxGlsimA2vSBKjnH
 });
 var defaultLayers = platform.createDefaultLayers();
 
@@ -46,7 +25,3 @@ var ui = H.ui.UI.createDefault(map, defaultLayers);
 window.onload = function () {
   moveMapToBerlin(map);
 }
-    </script>
-    </div>
-{{/partial}}
-{{>layout.hbs}}
