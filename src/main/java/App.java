@@ -1,14 +1,18 @@
+import dao.Sql2oClanDao;
+import models.Clan;
 import models.Users;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
 
 public class App {
         public static void main(String[] args){
+                Sql2oClanDao clanDao = new Sql2oClanDao();
                 staticFileLocation("public");
 
 
@@ -36,6 +40,8 @@ public class App {
 
                 get("/clans", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        List<Clan> clans = clanDao.getAll();
+                        model.put("clans", clans);
                         return  new ModelAndView(model, "clans.hbs");
                 },new HandlebarsTemplateEngine());
 

@@ -1,6 +1,11 @@
 {{#partial "content"}}
     <div class="card mx-auto">
         <h2>ALL CLANS</h2>
+        <ul>
+            {{#each clans}}
+                {{clanName}}
+            {{/each}}
+        </ul>
     </div>
 {{/partial}}
 {{>layout.hbs}}
