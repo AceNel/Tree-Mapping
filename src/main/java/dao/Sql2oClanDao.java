@@ -1,10 +1,12 @@
 package dao;
 
 import models.Clan;
+import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oClanDao implements ClanDao {
@@ -80,6 +82,28 @@ public class Sql2oClanDao implements ClanDao {
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
+    }
+
+    public List<Users> getClanMembers(Clan clan){
+        List<Users> members = new ArrayList<>();
+
+        String sql = "SELECT user_id FROM clan_members WHERE clan_id = :clanid;";
+        try(Connection con = DB.sql2o.open()){
+            List<Integer> allMemberIds = con.createQuery(sql)
+                    .addParameter("clanid",clan.getClanId())
+                    .executeAndFetch(Integer.class);
+
+            String matchingTrees = "SELECT * FROM users WHERE id = :userid;";
+            for(int id:allMemberIds){
+                members.add(
+                        con.createQuery(matchingTrees)
+                                .addParameter("userid",id)
+                                .executeAndFetchFirst(Users.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println("Failed to get members: "+ex);
+        }
+        return members;
     }
 
     public void updateTotalMembers(Clan clan){
