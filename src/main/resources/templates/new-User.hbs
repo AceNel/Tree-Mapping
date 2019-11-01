@@ -1,16 +1,25 @@
 {{#partial "content"}}
-    
-<div class="row">
-    <div class="col">
-        <div class="card bg-white" style="width: 33rem;">
-        <h3 class="text-center">{{user.username}}</h3>
-            <p>{{user.email}}</p>
+
+    <div class="row">
+        <div class="col">
+            <div class="card bg-white" style="width: 33rem;">
+                <div class="card-header bg-white">
+                    <h3 class="text-center">This User</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@{{user.username}}</li>
+                        <li class="list-group-item">{{user.email}}</li>
+                        <li class="list-group-item">{{user.trees_planted}}</li>
+                        <li class="list-group-item">{{user.clan_name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <img src="images(1).png" alt="">
         </div>
     </div>
-    <div class="col">
-        <img src="images(1).png" alt="">
-    </div>
-</div>
 
 {{/partial}}
 {{>layout.hbs}}

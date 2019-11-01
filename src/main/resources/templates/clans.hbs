@@ -1,11 +1,27 @@
 {{#partial "content"}}
     <div class="card mx-auto">
         <h2>ALL CLANS</h2>
-        <ul>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">name</th>
+                <th scope="col">members</th>
+                <th scope="col">view details</th>
+            </tr>
+            </thead>
+            <tbody>
             {{#each clans}}
-                {{clanName}}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{name}}</td>
+                    <td>{{total_members}}</td>
+                    <td><i class="fa fa-eye text-info"></i></td>
+                </tr>
             {{/each}}
-        </ul>
+
+            </tbody>
+        </table>
     </div>
 {{/partial}}
 {{>layout.hbs}}
