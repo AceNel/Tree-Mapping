@@ -1,5 +1,7 @@
+import dao.SQL2oTreeDao;
 import dao.Sql2oClanDao;
 import models.Clan;
+import models.Tree;
 import models.Users;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -13,6 +15,7 @@ import static spark.Spark.*;
 public class App {
         public static void main(String[] args){
                 Sql2oClanDao clanDao = new Sql2oClanDao();
+                SQL2oTreeDao treeDao = new SQL2oTreeDao();
                 staticFileLocation("public");
 
 
@@ -52,6 +55,11 @@ public class App {
 
                 post("/trees/new", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        String name = req.queryParams("treename");
+                        String species = req.queryParams("species");
+                        String longitude = req.queryParams("longitude");
+                        String latitude = req.queryParams("latitude");
+                        Tree tree = new Tree(name, species, latitude, longitude);
                         return new ModelAndView(model, "new-tree.hbs");
                 }, new HandlebarsTemplateEngine());
 
@@ -72,6 +80,8 @@ public class App {
 
                 get("/trees", (req, res)->{
                         Map<String, Object> model = new HashMap<String, Object>();
+                        List<Tree> trees = treeDao.getAllTrees();
+                        model.put("trees", trees);
                         return new ModelAndView(model, "trees.hbs");
                 }, new HandlebarsTemplateEngine());
 
