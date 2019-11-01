@@ -82,4 +82,17 @@ public class Sql2oClanDao implements ClanDao {
         }
     }
 
+    public void updateTotalMembers(Clan clan){
+        clan.increaseTotalMembers();
+        String sql = "UPDATE clan SET total_members = :total_members WHERE id=:id"; //CHECK!!!
+        try (Connection con = DB.sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("total_members", clan.getTotal_members())
+                    .addParameter("id", clan.getClanId())
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
 }

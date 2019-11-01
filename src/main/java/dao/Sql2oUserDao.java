@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Sql2oUserDao implements UserDao {
     SQL2oTreeDao treeDao = new SQL2oTreeDao();
+    Sql2oClanMembersDao clanMembersDao = new Sql2oClanMembersDao();
 
     public Sql2oUserDao(){}
 
@@ -141,10 +142,15 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public void joinClan(Users user, Clan clan) {
-        String sql = "UPDATE users SET inclan = 'true', clan_name = :clan_name WHERE id = :id;";
+        user.setInClan(true);
+        user.setClan_name(clan.getClanName());
+
+        clanMembersDao.addClanMembers(user,clan);
+        String sql = "UPDATE users SET inclan = :isInClan, clan_name = :clan_name WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
             con.createQuery(sql)
                     .addParameter("clan_name",user.getClan_name())
+                    .addParameter("isInClan",user.isInClan())
                     .addParameter("id",user.getId())
                     .executeUpdate();
             // TODO: 10/30/19 ADD clan name parameter here!!

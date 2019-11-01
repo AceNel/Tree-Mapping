@@ -74,6 +74,9 @@ public class Clan {
         instances.add(newClan);
     }
 
+    public void increaseTotalMembers(){ this.total_members++; }
+    public void decreaseTotalMembers(){ this.total_members--; }
+
     public static void clearAllClans(){ instances.clear(); }
 
     @Override
