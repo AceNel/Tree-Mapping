@@ -1,0 +1,30 @@
+{{#partial "content"}}
+
+    <div class="card mx-auto">
+
+        <form action="tree/new">
+            <div class="input-group">
+                <input type="text" name="treename" id="treename" placeholder="Tree Name"  class="form-control col-sm-4">
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" name="species" placeholder="species" id="species">
+            </div>
+            <hr>
+            <h5>Location</h5>
+            <div class="form-group">
+                <input type="text" name="longitude" placeholder="longitude" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="latitude" placeholder="latitude" class="form-control">
+            </div>
+            <button type="Submit" class="btn btn-info">Submit</button>
+
+        </form>
+
+
+    </div>
+
+{{/partial}}
+{{>layout.hbs}}

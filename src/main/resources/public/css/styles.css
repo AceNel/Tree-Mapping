@@ -6,8 +6,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
+  z-index: 9;
+}
+
+.show{
+    width: 17rem;
+    background-color: white;
+
 }
 
 .page-content {
@@ -19,11 +25,14 @@
 
 #sidebar.active {
   margin-left: -17rem;
-}
+  height = 100%;
+  z-index:9;
+}id="sidebarCollapse"
 
 #content.active {
   width: 100%;
   margin: 0;
+  z-index: 9;
 }
 
 @media (max-width: 768px) {
@@ -60,4 +69,8 @@ body {
 
 .text-gray {
   color: #aaa;
+}
+.darkmode{
+background-color: black;
+color: white;
 }
