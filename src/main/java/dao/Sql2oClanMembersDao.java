@@ -54,10 +54,10 @@ public class Sql2oClanMembersDao implements ClanMembersDao {
                     .addParameter("userid",user.getId())
                     .executeUpdate();
         } catch (Sql2oException ex){
-        System.out.println("Failed to update points: "+ex);
+            System.out.println("Failed to update points: "+ex);
+        }
     }
 
-    }
 
 
 

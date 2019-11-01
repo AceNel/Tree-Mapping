@@ -106,6 +106,28 @@ public class Sql2oClanDao implements ClanDao {
         return members;
     }
 
+    public List<Users> getLeaderboard(Clan clan){
+        List<Users> members = new ArrayList<>();
+
+        String sql = "SELECT user_id FROM clan_members WHERE clan_id = :clanid ORDER BY average_pts DESC;";
+        try(Connection con = DB.sql2o.open()){
+            List<Integer> allMemberIds = con.createQuery(sql)
+                    .addParameter("clanid",clan.getClanId())
+                    .executeAndFetch(Integer.class);
+
+            String matchingTrees = "SELECT * FROM users WHERE id = :userid;";
+            for(int id:allMemberIds){
+                members.add(
+                        con.createQuery(matchingTrees)
+                                .addParameter("userid",id)
+                                .executeAndFetchFirst(Users.class));
+            }
+        } catch (Sql2oException ex){
+            System.out.println("Failed to get members: "+ex);
+        }
+        return members;
+    }
+
     public void updateTotalMembers(Clan clan){
         clan.increaseTotalMembers();
         String sql = "UPDATE clan SET total_members = :total_members WHERE id=:id"; //CHECK!!!
